@@ -16,13 +16,14 @@ app.get("/documents", async (req, res) => {
       length = null,
       price = null,
       year = null,
+      DocumentID = null,
     } = req.query;
     const response = await axios.get(
       "https://services.boats.com/pls/boats/search",
       {
         params: {
           fields:
-            "DocumentID,numResults,CompanyName,LengthOverall,length,owner,OwnerPartyID,salesrep,SalesRepPartyID,ModelYear,make,MakeString,Model,Images,BoatName,BoatLocation,SaleClassCode,BoatClassCode,Office,PriceHideInd,Price,GeneralBoatDescription,price=${minPrice}:${maxPrice}|USD,length=${minLength}:${maxLength},year=${minYear}:${maxYear},price=${minPrice}:${maxPrice}|USD",
+            "DocumentID,numResults,CompanyName,LengthOverall,NumberOfEngines,AdditionalDetailDescription,TotalEnginePowerQuantity,length,owner,LengthOverall,OwnerPartyID,salesrep,SalesRepPartyID,ModelYear,make,MakeString,Model,Images,BoatName,BoatLocation,SaleClassCode,BoatClassCode,Office,PriceHideInd,Price,GeneralBoatDescription,price=${minPrice}:${maxPrice}|USD,length=${minLength}:${maxLength},year=${minYear}:${maxYear},price=${minPrice}:${maxPrice}|USD",
           key: "gs4g3hpp688c",
           start,
           rows,
@@ -33,6 +34,7 @@ app.get("/documents", async (req, res) => {
           year,
           sort: "ModelYear|desc",
           class: boatClass,
+          DocumentID,
         },
       }
     );
@@ -48,7 +50,10 @@ app.get("/documents", async (req, res) => {
         SalesRepPartyID,
         ModelYear,
         MakeString,
+        NumberOfEngines,
         LengthOverall,
+        TotalEnginePowerQuantity,
+        AdditionalDetailDescription,
         Model,
         Images,
         BoatName,
@@ -68,6 +73,9 @@ app.get("/documents", async (req, res) => {
         length,
         OwnerPartyID,
         LengthOverall,
+        NumberOfEngines,
+        TotalEnginePowerQuantity,
+        AdditionalDetailDescription,
         salesrep,
         SalesRepPartyID,
         ModelYear,
